@@ -1,0 +1,969 @@
+{
+	"info": {
+		"_postman_id": "fefb040c-1fb3-4044-88d1-647ebc81f952",
+		"name": "Test Trello API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15418426",
+		"_collection_link": "https://universal-desert-738472.postman.co/workspace/Team-Workspace~82b6fbe4-d31f-4444-85df-6d58a70a10b3/collection/15418426-fefb040c-1fb3-4044-88d1-647ebc81f952?action=share&source=collection_link&creator=15418426"
+	},
+	"item": [
+		{
+			"name": "Crear Card",
+			"item": [
+				{
+					"name": "Chequear status de la Pendientes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Precondición, La List Pendientes, debería estar disponible\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const body = pm.response.json();\r",
+									"pm.test(\"Precondición: La List debería tener el nombre de Pendientes\", ()=>\r",
+									"pm.expect(body.name).to.include(\"Pendientes\"));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GETList}}/:{{idListPendiente}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{GETList}}"
+							],
+							"path": [
+								":{{idListPendiente}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "{{idListPendiente}}",
+									"value": "{{idListPendiente}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Chequear status de la Elaborando",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Precondición, La List Elaborando, debería estar disponible\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const body = pm.response.json();\r",
+									"pm.test(\"Precondición: La List debería tener el nombre de Elaborando\", ()=>\r",
+									"pm.expect(body.name).to.include(\"Elaborando\"));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GETList}}/:{{IdListElaborando}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{GETList}}"
+							],
+							"path": [
+								":{{IdListElaborando}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "{{IdListElaborando}}",
+									"value": "{{IdListElaborando}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Chequear status de la Terminado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Precondición, La List Terminado, debería estar disponible\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const body = pm.response.json();\r",
+									"pm.test(\"Precondición: La List debería tener el nombre de Terminado\", ()=>\r",
+									"pm.expect(body.name).to.include(\"Terminado\"));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GETList}}/:{{IdListTerminado}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{GETList}}"
+							],
+							"path": [
+								":{{IdListTerminado}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "{{IdListTerminado}}",
+									"value": "{{IdListTerminado}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear CardA and desc Random",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomName = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+									"const newRandomDesc = pm.variables.replaceIn(\"{{$randomCurrencyName}}\")\r",
+									"pm.collectionVariables.set(\"cardRandomName\", randomName)\r",
+									"pm.collectionVariables.set(\"cardRandomDesc\", newRandomDesc)\r",
+									"\r",
+									"//Para buscar los nombres\r",
+									"//pm.variables.get(\"$randomFullName"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//convierte la respuesta de una solicitud HTTP a formato JSON y te permite trabajar con los datos devueltos en la respuesta de forma más eficiente en los scripts de prueba de Postman. const body = pm.response.json()\r",
+									"const body = pm.response.json()\r",
+									"const idCard = body.id\r",
+									"\r",
+									"pm.test(\"CARD debería estar creada en la lista Pendientes\", ()=>{\r",
+									"    pm.response.to.have.status(200),\r",
+									"pm.expect(body.idList).to.equal(pm.environment.get(\"idListPendiente\"))\r",
+									"});\r",
+									"pm.test(\"Nombre de la CARD debería ser igual al valor ingreseado previamente\", ()=>\r",
+									"pm.expect(body.name).to.equal(pm.collectionVariables.get(\"cardRandomName\")));\r",
+									"//Obtener el id de la carta B y almacenarlo\r",
+									"pm.collectionVariables.set(\"idCardA\", idCard)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{POSTList}}?idList={{idListPendiente}}&name={{cardRandomName}}&desc={{cardRandomDesc}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{POSTList}}"
+							],
+							"query": [
+								{
+									"key": "idList",
+									"value": "{{idListPendiente}}"
+								},
+								{
+									"key": "name",
+									"value": "{{cardRandomName}}"
+								},
+								{
+									"key": "desc",
+									"value": "{{cardRandomDesc}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear CardB and desc Random",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomName = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+									"const newRandomDesc = pm.variables.replaceIn(\"{{$randomCommonFileName}}\")\r",
+									"pm.collectionVariables.set(\"cardRandomName\", randomName)\r",
+									"pm.collectionVariables.set(\"cardRandomDesc\", newRandomDesc)\r",
+									"\r",
+									"//Para buscar los nombres\r",
+									"//pm.variables.get(\"$randomCommonFileName"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//convierte la respuesta de una solicitud HTTP a formato JSON y te permite trabajar con los datos devueltos en la respuesta de forma más eficiente en los scripts de prueba de Postman. const body = pm.response.json()\r",
+									"const body = pm.response.json()\r",
+									"const idCard = body.id\r",
+									"\r",
+									"pm.test(\"CARD debería estar creada en la lista Pendientes\", ()=>{\r",
+									"    pm.response.to.have.status(200),\r",
+									"pm.expect(body.idList).to.equal(pm.environment.get(\"idListPendiente\"))\r",
+									"});\r",
+									"pm.test(\"Nombre de la CARD debería ser igual al valor ingreseado previamente\", ()=>\r",
+									"pm.expect(body.name).to.equal(pm.collectionVariables.get(\"cardRandomName\")));\r",
+									"//Obtener el id de la carta B\r",
+									"pm.collectionVariables.set(\"idCardB\", idCard)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{POSTList}}?idList={{idListPendiente}}&name={{cardRandomName}}&desc={{cardRandomDesc}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{POSTList}}"
+							],
+							"query": [
+								{
+									"key": "idList",
+									"value": "{{idListPendiente}}"
+								},
+								{
+									"key": "name",
+									"value": "{{cardRandomName}}"
+								},
+								{
+									"key": "desc",
+									"value": "{{cardRandomDesc}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Modificar Card",
+			"item": [
+				{
+					"name": "Modificar Card A",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomName = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+									"const newRandomDesc = pm.variables.replaceIn(\"{{$randomCommonFileName}}\")\r",
+									"pm.collectionVariables.set(\"cardRandomName\", randomName)\r",
+									"pm.collectionVariables.set(\"cardRandomDesc\", newRandomDesc)\r",
+									"\r",
+									"//Para buscar los nombres\r",
+									"//pm.variables.get(\"$randomCommonFileName"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json()\r",
+									"const randomName = pm.collectionVariables.get(\"cardRandomName\")\r",
+									"const randomDesc = pm.collectionVariables.get(\"cardRandomDesc\")\r",
+									"\r",
+									"const idLabel = pm.environment.get(\"IdLabelNew\")\r",
+									"const labelNew = body.labels[0].id\r",
+									"\r",
+									"const idLabel2 = pm.environment.get(\"IdLabelNew2\")\r",
+									"const labelNew2 = body.labels[1].id\r",
+									"\r",
+									"pm.test(\"Nombre de la Card debería ser modificado\", ()=>\r",
+									"    pm.expect(body.name).to.eql(randomName));\r",
+									"pm.test(\"Descripción de la carta debería ser modificado\", ()=>\r",
+									"    pm.expect(body.desc).to.eql(randomDesc));\r",
+									"pm.test(\"Card debería tener la etiqueta NEW\", ()=>\r",
+									"    pm.expect(labelNew).to.eql(idLabel));\r",
+									"pm.test(\"Card debería tener una etiqueta morada\", ()=>\r",
+									"    pm.expect(labelNew2).to.eql(idLabel2));\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{PUTCard}}/:id?key={{key}}&token={{token}}&name={{cardRandomName}}&desc={{cardRandomDesc}}&idLabels=66b5d83325ca9c649bc54db2&idLabels=66af40bc697a512f280ed806",
+							"host": [
+								"{{PUTCard}}"
+							],
+							"path": [
+								":id"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "{{cardRandomName}}"
+								},
+								{
+									"key": "desc",
+									"value": "{{cardRandomDesc}}"
+								},
+								{
+									"key": "idLabels",
+									"value": "66b5d83325ca9c649bc54db2",
+									"description": "66b5d83325ca9c649bc54db2"
+								},
+								{
+									"key": "idLabels",
+									"value": "66af40bc697a512f280ed806",
+									"description": "66af40bc697a512f280ed806"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{idCardA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Card B",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomName = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+									"const newRandomDesc = pm.variables.replaceIn(\"{{$randomCommonFileName}}\")\r",
+									"pm.collectionVariables.set(\"cardRandomName\", randomName)\r",
+									"pm.collectionVariables.set(\"cardRandomDesc\", newRandomDesc)\r",
+									"\r",
+									"//Para buscar los nombres\r",
+									"//pm.variables.get(\"$randomCommonFileName"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json()\r",
+									"const randomName = pm.collectionVariables.get(\"cardRandomName\")\r",
+									"const randomDesc = pm.collectionVariables.get(\"cardRandomDesc\")\r",
+									"//1era etiqueta\r",
+									"const idLabel = pm.environment.get(\"IdLabelNew\")\r",
+									"const labelNew = body.labels[0].id\r",
+									"\r",
+									"pm.test(\"Nombre de la Card debería ser modificado\", ()=>\r",
+									"    pm.expect(body.name).to.eql(randomName));\r",
+									"pm.test(\"Descripción de la carta debería ser modificado\", ()=>\r",
+									"    pm.expect(body.desc).to.eql(randomDesc));\r",
+									"pm.test(\"Card debería tener la etiqueta NEW\", ()=>\r",
+									"    pm.expect(labelNew).to.eql(idLabel));\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{PUTCard}}/:id?key={{key}}&token={{token}}&name={{cardRandomName}}&desc={{cardRandomDesc}}&idLabels=66b5d83325ca9c649bc54db2",
+							"host": [
+								"{{PUTCard}}"
+							],
+							"path": [
+								":id"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "{{cardRandomName}}"
+								},
+								{
+									"key": "desc",
+									"value": "{{cardRandomDesc}}"
+								},
+								{
+									"key": "idLabels",
+									"value": "66b5d83325ca9c649bc54db2",
+									"description": "azul"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{idCardB}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mover Card",
+			"item": [
+				{
+					"name": "Mover card A to Elaborando",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomName = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+									"const newRandomDesc = pm.variables.replaceIn(\"{{$randomCommonFileName}}\")\r",
+									"pm.collectionVariables.set(\"cardRandomName\", randomName)\r",
+									"pm.collectionVariables.set(\"cardRandomDesc\", newRandomDesc)\r",
+									"\r",
+									"//Para buscar los nombres\r",
+									"//pm.variables.get(\"$randomCommonFileName"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json()\r",
+									"const activeList = pm.environment.get(\"IdListElaborando\")\r",
+									"\r",
+									"pm.test(\"Cars debería estar ahora en la lista Elaborando\", ()=>\r",
+									"    pm.expect(body.idList).to.eql(activeList))\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{PUTCard}}/:id?key={{key}}&token={{token}}&idList={{IdListElaborando}}",
+							"host": [
+								"{{PUTCard}}"
+							],
+							"path": [
+								":id"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{IdListElaborando}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{idCardA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mover card A to Terminado",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomName = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+									"const newRandomDesc = pm.variables.replaceIn(\"{{$randomCommonFileName}}\")\r",
+									"pm.collectionVariables.set(\"cardRandomName\", randomName)\r",
+									"pm.collectionVariables.set(\"cardRandomDesc\", newRandomDesc)\r",
+									"\r",
+									"//Para buscar los nombres\r",
+									"//pm.variables.get(\"$randomCommonFileName"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json()\r",
+									"const activeList = pm.environment.get(\"IdListTerminado\")\r",
+									"\r",
+									"pm.test(\"Cars debería estar ahora en la lista Terminado\", ()=>\r",
+									"    pm.expect(body.idList).to.eql(activeList))\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{PUTCard}}/:id?key={{key}}&token={{token}}&idList={{IdListTerminado}}",
+							"host": [
+								"{{PUTCard}}"
+							],
+							"path": [
+								":id"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{IdListTerminado}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{idCardA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mover card B to Elaborando",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomName = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+									"const newRandomDesc = pm.variables.replaceIn(\"{{$randomCommonFileName}}\")\r",
+									"pm.collectionVariables.set(\"cardRandomName\", randomName)\r",
+									"pm.collectionVariables.set(\"cardRandomDesc\", newRandomDesc)\r",
+									"\r",
+									"//Para buscar los nombres\r",
+									"//pm.variables.get(\"$randomCommonFileName"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json()\r",
+									"const activeList = pm.environment.get(\"IdListElaborando\")\r",
+									"\r",
+									"pm.test(\"Cars debería estar ahora en la lista Elaborando\", ()=>\r",
+									"    pm.expect(body.idList).to.eql(activeList))\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{PUTCard}}/:id?key={{key}}&token={{token}}&idList={{IdListElaborando}}",
+							"host": [
+								"{{PUTCard}}"
+							],
+							"path": [
+								":id"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{IdListElaborando}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{idCardB}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mover card B to Terminado",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomName = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+									"const newRandomDesc = pm.variables.replaceIn(\"{{$randomCommonFileName}}\")\r",
+									"pm.collectionVariables.set(\"cardRandomName\", randomName)\r",
+									"pm.collectionVariables.set(\"cardRandomDesc\", newRandomDesc)\r",
+									"\r",
+									"//Para buscar los nombres\r",
+									"//pm.variables.get(\"$randomCommonFileName"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json()\r",
+									"const activeList = pm.environment.get(\"IdListTerminado\")\r",
+									"\r",
+									"pm.test(\"Cars debería estar ahora en la lista Terminado\", ()=>\r",
+									"    pm.expect(body.idList).to.eql(activeList))\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{PUTCard}}/:id?key={{key}}&token={{token}}&idList={{IdListTerminado}}",
+							"host": [
+								"{{PUTCard}}"
+							],
+							"path": [
+								":id"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{IdListTerminado}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{idCardB}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Remover Card",
+			"item": [
+				{
+					"name": "Verificar Card si esta archivada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json()\r",
+									"\r",
+									"pm.test(\"CARD no debería estar archivada\", ()=>\r",
+									"    pm.expect(body.closed).to.be.false);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GETCard}}/:id?key={{key}}&token={{token}}",
+							"host": [
+								"{{GETCard}}"
+							],
+							"path": [
+								":id"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{idCardA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archivar Card A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json()\r",
+									"\r",
+									"pm.test(\"CARD no debería estar archivada\", ()=>\r",
+									"    pm.expect(body.closed).to.be.true);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{PUTCard}}/:id?key={{key}}&token={{token}}&closed=true",
+							"host": [
+								"{{PUTCard}}"
+							],
+							"path": [
+								":id"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "closed",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{idCardA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Des-Archivar Card A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json()\r",
+									"\r",
+									"pm.test(\"CARD no debería estar archivada\", ()=>\r",
+									"    pm.expect(body.closed).to.be.false);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{PUTCard}}/:id?key={{key}}&token={{token}}&closed=false",
+							"host": [
+								"{{PUTCard}}"
+							],
+							"path": [
+								":id"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "closed",
+									"value": "false"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "cardRandomName",
+			"value": ""
+		},
+		{
+			"key": "cardRandomDesc",
+			"value": ""
+		},
+		{
+			"key": "idCardPendiente",
+			"value": ""
+		},
+		{
+			"key": "idCardB",
+			"value": ""
+		},
+		{
+			"key": "idCardA",
+			"value": ""
+		}
+	]
+}
